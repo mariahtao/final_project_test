@@ -1,21 +1,17 @@
 # Read in libraries
-library(shiny)
-library(dplyr)
+
 library(plotly)
-library(ggplot2)
+library(dplyr)
+library(png)
 
-source('./graphfunction.R')
-df <- read.csv(file="TheDataIWantToReadIn.csv", header=TRUE)
+# Identifying source and reading in data
+source('./script/gender_ID.R')
+df <- read.csv("data/marvel-wikia-data.csv", stringsAsFactors = FALSE)
 
-# Define server logic to plot graph
+# Define server logic to plot circular graph graph
 shinyServer(function(input, output) { 
-  # Returning the map with plotly
-  output$map <- renderPlotly({ 
-    variable1.input <- switch(input$variable1, 
-                              'Male' = df$sex,
-                              'Female' = df$sex)
-    variable2.input <- switch(input$variable2, 
-                              'Appearances' = df$APPEARANCES)
-    return(graphData(df, variable1.input, variable2.input, input$variable1,input$variable2))
-  }) 
+  output$circularPlot <- renderPlot({
+    selection <- input$variable1
+    return(CircleGraph(df, selection))
+  })
 })

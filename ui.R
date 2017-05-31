@@ -6,12 +6,16 @@ library(ggplot2)
 # Define UI for application that draws a histogram
 shinyUI(navbarPage('Data on Marvel Characters', 
                    tabPanel('Gender and ID for Marvel Data',
+                        fluidPage(    
                             # Application title
                             titlePanel('Gender vs ID'),
                             # Sidebar with a select input for variables
                             sidebarLayout(
                               sidebarPanel(
-                                selectInput("variable1", label = 'ID',choices = list("Secret Identity", "Public Identity", "No Dual Identity", "Known to Authorities Identity"))
+                                selectInput("variable", label = 'ID', choices = list("Secret Identity" = "Secret", 
+                                                                                      "Public Identity" = "Public", 
+                                                                                      "No Dual Identity" = "None", 
+                                                                                      "Known to Authorities Identity" = "Known"))
     ),
     # Suumary and Conclusion 
     mainPanel(
@@ -22,5 +26,6 @@ shinyUI(navbarPage('Data on Marvel Characters',
       h4("In conclusion this dataset shows that the male characetrs are featured more than female characters.")
     )
   )
+)
 ))
 )

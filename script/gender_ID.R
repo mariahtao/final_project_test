@@ -6,7 +6,7 @@ library(tidyr)
 library(stringr)
 
 # Circular one
-CircleGraph <- function(dataset, variable1) {
+CircleGraph <- function(dataset, variable) {
   my.data <- group_by(dataset, SEX, ID) %>%
     summarize(count = n())
   
@@ -42,9 +42,9 @@ CircleGraph <- function(dataset, variable1) {
                      round(table$public/table$total * 100, digit = 0),
                      round(table$none/table$total * 100, digit = 0),
                      round(table$known/table$total * 100, digit = 0))
-  colnames(pcnt) <- c("Gender","Secret", "Public","None", "Known")
+  colnames(pcnt) <- c("Gender", "Secret", "Public", "None", "Known")
   
-  circular <- ggplot(pcnt, aes(x = Gender, y = eval(parse(text = variable1)), fill = Gender)) + 
+  circular <- ggplot(pcnt, aes(x = Gender, y = get(text = variable), fill = Gender)) + 
     geom_bar(width = 0.85, stat = "identity") +    
     
     # To use a polar plot and not a basic b arplot
@@ -62,7 +62,7 @@ CircleGraph <- function(dataset, variable1) {
     #Remove useless legend, y axis ticks and y axis text
     theme(legend.position = "none" , axis.text.y = element_blank() , axis.ticks = element_blank()) +
     
-    ggtitle(paste("Proportion of each gender for ", as.character(variable1), "ID")) +
+    ggtitle(paste("Proportion of each gender for ", as.character(variable), "ID")) +
     
     scale_fill_manual("legend", values = c("Male" = "blue", "Female" = "pink")) +
     

@@ -12,6 +12,7 @@ df <- read.csv("data/marvel-wikia-data.csv", stringsAsFactors = FALSE)
 shinyServer(function(input, output) { 
   output$circularPlot <- renderPlot({
     selection <- input$variable
-    return(CircleGraph(df, selection))
+    graph <- CircleGraph(df, selection)
+    return(graph)
   })
 })

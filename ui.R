@@ -3,6 +3,8 @@ library(shiny)
 library(plotly)
 library(ggplot2)
 
+source('./script/gender_ID.R')
+
 # Define UI for application that draws a histogram
 shinyUI(navbarPage('Data on Marvel Characters', 
                    tabPanel('Gender and ID for Marvel Data',
